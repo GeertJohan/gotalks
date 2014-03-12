@@ -1,0 +1,267 @@
+Go: een simpele programmeer omgeving
+
+Geert-Johan Riemer
+Foize
+github.com/GeertJohan
+
+* Introductie
+
+TODO: remove this slide ?
+Go is een concurrent open source programmeer taal ontwikkeld bij Google.
+
+Het combineerd native compilatie and static types terwijl het voelt als een dynamische/scripting taal.
+
+Snel, leuk en productief.
+
+
+* Wat is Go?
+
+Een open source (BSD licentie) project:
+
+- Native code generation (gecompileerd)
+- Statically typed
+- Composition via interfaces
+- Memory safe
+- Garbage collected
+- Native concurrency support
+- Geweldige standard library
+- Goede tools
+
+
+* Geschiedenis
+
+- Project is gestart bij Google in 2007 (door Griesemer, Pike, Thompson)
+- Open source release in November 2009
+- Versie 1.0 release in Maart 2012
+- Meer recente release (1.2.1) was 2 Maart 2014
+- Nu meer dan 500 contributors
+
+
+* Hello, go
+
+.play simpel/hello.go
+
+
+* Packages
+
+Go code is ingedeeld in packages.
+
+Packages bevatten type, function, variable, and constant declaraties.
+
+Packages kunnen er klein zijn (package `errors` bevat maar één declaratie) of erg groot (package `net/http` heeft >100 declaraties). De meesten zitten hier tussen.
+
+Hoofdletter bepaald zichtbaarheid: `Foo` is exported, `foo` niet
+
+
+* io
+
+Package `io` biedt fundamentele I/O interfaces die gebruikt worden door veel Go code.
+
+De meest bekende zijn de `Reader` en `Writer` types, voor gebruik van data streams.
+
+.code simpel/io/io.go
+
+`Reader` and `Writer` implementaties omvatten files, sockets, (de)compressors, image and JSON codecs, en meer.
+
+
+* Koppelen van io.Readers
+
+.play simpel/reader.go
+
+
+* net/http
+
+Package `net/http` bevat een HTTP server en client.
+
+.play simpel/hello-web.go
+
+
+* encoding/json
+
+Package `encoding/json` converteerd JSON-geëncodeerde data van en naar Go data structuren.
+
+.play simpel/json.go /const/,$
+
+
+* time
+
+Package `time` biedt een representatie van tijd and duur, en andere tijd-gerelateerde functies.
+
+.play simpel/time.go /START/,/END/
+.play simpel/time2.go /START/,/END/
+
+`time.Time` values bevatten ook een `time.Location` (voor weergave):
+
+.play simpel/time3.go /START/,/END/
+
+
+* os/exec
+
+Package `os/exec` bevat een simpele API voor het gebruik van externe programma's.
+
+.play simpel/exec.go /START/,/END/
+
+
+* Tools
+
+* De go tool
+
+De `go` tool is het de facto standaard voor het builden en installeren van Go code.
+
+Compileer en start een enkel Go bestand:
+
+	$ go run hello.go
+
+Build en installeer het package in de huidige map (en e.v.t. dependencies):
+
+	$ go install
+
+Build en installeer het `fmt` package (en zijn dependencies):
+
+	$ go install fmt
+
+
+* Import paths
+
+De `go` tool is een "zero configuration" tool.
+Er zijn geen Makefiles of scripts. Slechts Go code.
+Je build schema en code zijn altijd gesynchroniseerd; ze zijn hetzelfde.
+
+Het import path van een pakket komt overeen met de locatie van het pakket:
+
+  src/
+    github.com/GeertJohan/
+      mgl/
+        main.go
+        constants.go
+      go.hid/
+        hid.go
+
+Het `mgl` programma importeert het `go.hid` pakket:
+
+  import "github.com/GeertJohan/go.hid"
+
+Door `gosynth` te installeren wordt `go.hid` ook automatisch geinstalleerd:
+
+  $ go install github.com/GeertJohan/mgl
+
+
+* Remote dependencies
+
+De `go` tool haalt ook code van remote repositories.
+
+Import paths kunnen een URL zijn:
+
+	import "github.com/gorilla/websocket"
+
+Download, build and installeer een package:
+
+	$ go get github.com/gorilla/websocket
+
+Om `gomatrix` en zijn dependencies te downloaden, builden, en installeren:
+
+	$ go get github.com/GeertJohan/gomatrix
+
+Dit simpele design leidt tot andere handige tools:
+
+.link http://godoc.org
+
+
+* Godoc
+
+Godoc haalt documentatie uit Go code and presenteert het in een aantal formaten.
+
+Comments hebben geen speciaal formaat, ze worden geplaatst direct voor datgene wat ze documenteren.
+
+	// Split slices s into all substrings separated by sep and returns a slice of
+	// the substrings between those separators.
+	// If sep is empty, Split splits after each UTF-8 sequence.
+	// It is equivalent to SplitN with a count of -1.
+	func Split(s, sep string) []string {
+
+.image simpel/split.png
+
+Documentatie in de code is gemakkelijk up-to-date te houden.
+
+
+* Gofmt
+
+De `gofmt` tool is een pretty-printer voor Go source code.
+
+Alle Go code in de core (tools+stdlib) is ge-gofmt, net als ~80% van open source Go code.
+
+Voorkomt saaie formatting discussies.
+
+Verbeterd leesbaarheid. Verbeterd schrijfbaarheid.
+
+Bespaard _enorm_ veel tijd.
+
+
+* Tests: schrijven
+
+De `go` tool en de `testing` package bieden een lichtgewicht test framework.
+
+.code simpel/test/string_test.go /func TestIndex/,/^}/
+
+
+* Tests: uitvoeren
+
+De go tool voert tests uit.
+
+	$ go test
+	PASS
+
+	$ go test -v
+	=== RUN TestIndex
+	--- PASS: TestIndex (0.00 seconds)
+	PASS
+
+
+Om tests te draaien voor een import path:
+
+	$ go test github.com/GeertJohan/go.incremental
+
+Met `-cover` wordt ook de test-coverage berekend.
+
+	$ go test -cover strings
+	ok  	strings	0.487s	coverage: 96.4% of statements
+
+
+* Tests: benchmarks
+
+Het `testing` package support ook benchmarks.
+
+.code simpel/test/string_test.go /func BenchmarkIndex/,/^}/
+
+Het `testing` package zal `b.N` veranderen tot de benchmark functie lang genoeg duurt om betrouwbaar ge-timed te worden.
+
+	$ go test -test.bench=Index
+	PASS
+	BenchmarkIndex	50000000	        37.3 ns/op
+
+
+* Tests: documentatie voorbeelden
+
+Het `testing` package biedt ook support voor testbare voorbeelden.
+
+.code simpel/test/string_test.go /func ExampleIndex/,/^}/
+
+Voorbeelden worden ge-build en uitgevoerd als onderdeel van de normale tests:
+
+	$ go test -v
+	=== RUN: ExampleIndex
+	--- PASS: ExampleIndex (0.00 seconds)
+	PASS
+
+Het voorbeeld wordt weergegeven in `godoc` bij datgene wat het demonstreert:
+
+.link http://golang.org/pkg/strings/#Index
+
+
+* Nog veel meer!
+
+- `vet`: controlleert code op veel voorkomende programmeer fouten
+- `pprof`: CPU en memory profiling
+- `fix`: migreerd code automatisch zodra APIs veranderen
+- GDB support
+- Editor support: Vim, Emacs, Eclipse, Sublime Text
