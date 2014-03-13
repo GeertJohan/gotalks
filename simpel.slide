@@ -48,7 +48,7 @@ Go code is ingedeeld in packages.
 
 Packages bevatten type, function, variable, and constant declaraties.
 
-Packages kunnen er klein zijn (package `errors` bevat maar één declaratie) of erg groot (package `net/http` heeft >100 declaraties). De meesten zitten hier tussen.
+Packages kunnen erg klein zijn (package `errors` bevat maar één declaratie) of erg groot (package `net/http` heeft >100 declaraties). De meesten zitten hier tussen.
 
 Hoofdletter bepaald zichtbaarheid: `Foo` is exported, `foo` niet
 
