@@ -9,7 +9,7 @@ github.com/GeertJohan
 TODO: remove this slide ?
 Go is een concurrent open source programmeer taal ontwikkeld bij Google.
 
-Het combineerd native compilatie and static types terwijl het voelt als een dynamische/scripting taal.
+Het combineert native compilatie and static types terwijl het voelt als een dynamische/scripting taal.
 
 Snel, leuk en productief.
 
@@ -192,7 +192,7 @@ Alle Go code in de core (tools+stdlib) is ge-gofmt, net als ~80% van open source
 
 Voorkomt saaie formatting discussies.
 
-Verbeterd leesbaarheid. Verbeterd schrijfbaarheid.
+Verbeterd leesbaarheid. Verbeterd onderhoudbaarheid.
 
 Bespaard _enorm_ veel tijd.
 
@@ -260,8 +260,8 @@ Het voorbeeld wordt weergegeven in `godoc` bij datgene wat het demonstreert:
 
 * Nog veel meer!
 
-- `vet`: controlleert code op veel voorkomende programmeer fouten
+- `vet`: controleert code op veel voorkomende programmeer fouten
 - `pprof`: CPU en memory profiling
-- `fix`: migreerd code automatisch zodra APIs veranderen
+- `fix`: migreert code automatisch zodra APIs veranderen
 - GDB support
 - Editor support: Vim, Emacs, Eclipse, Sublime Text
