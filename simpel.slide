@@ -104,6 +104,23 @@ Package `os/exec` bevat een simpele API voor het gebruik van externe programma's
 .play simpel/exec.go /START/,/END/
 
 
+* Concurrency
+
+* goroutines
+
+Goroutines maken concurrency makkelijk.
+
+.play simpel/goroutines.go /import/,$
+
+
+* channels
+
+"Don't communicate by sharing memory; share memory by communicating."
+
+goroutines communiceren via channels.
+
+.play simpel/channels.go /START/,/END/
+
 * Tools
 
 * De go tool

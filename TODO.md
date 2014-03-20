@@ -1,3 +1,2 @@
  - waar gebruik ik Go voor
  - waar gebruiken anderen Go voor
- - goroutines & channels
