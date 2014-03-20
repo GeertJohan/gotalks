@@ -33,9 +33,11 @@ Een open source (BSD licentie) project:
 - Project is gestart bij Google in 2007 (door Griesemer, Pike, Thompson)
 - Open source release in November 2009
 - Versie 1.0 release in Maart 2012
-- Meer recente release (1.2.1) was 2 Maart 2014
+- Meest recente release (1.2.1) was 2 Maart 2014
 - Nu meer dan 500 contributors
 
+In gebruik bij:
+Atlassian/Bitbucket, Cloudflare, pool.ntp.org, Soundcloud, Youtube, 10gen, Rackspace, bit.ly, Disqus, Canonical, Google, Foize.
 
 * Hello, go
 
