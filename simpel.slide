@@ -117,9 +117,12 @@ Goroutines maken concurrency makkelijk.
 
 "Don't communicate by sharing memory; share memory by communicating."
 
-goroutines communiceren via channels.
-
 .play simpel/channels.go /START/,/END/
+
+* select
+
+.code simpel/select.go /START1/,/END1/
+.play simpel/select.go /START2/,/END2/
 
 * Tools
 
@@ -160,7 +163,7 @@ Het `mgl` programma importeert het `go.hid` pakket:
 
   import "github.com/GeertJohan/go.hid"
 
-Door `gosynth` te installeren wordt `go.hid` ook automatisch geinstalleerd:
+Door `mgl` te installeren wordt `go.hid` ook automatisch geinstalleerd:
 
   $ go install github.com/GeertJohan/mgl
 
