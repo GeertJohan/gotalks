@@ -119,6 +119,10 @@ Goroutines maken concurrency makkelijk.
 
 .play simpel/channels.go /START/,/END/
 
+* close() channels
+
+.play simpel/channels2.go /START/,/END/
+
 * select
 
 .code simpel/select.go /START1/,/END1/

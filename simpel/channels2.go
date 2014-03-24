@@ -11,13 +11,17 @@ import (
 func producer(messageCh chan string) {
 	for i := 0; i < 5; i++ {
 		message := "bericht " + strconv.Itoa(i)
-		messageCh <- message // HL
+		messageCh <- message
 	}
+	close(messageCh) // HL
 }
 
 func printer(messageCh chan string) {
 	for {
-		message := <-messageCh // HL
+		message, ok := <-messageCh
+		if !ok { // HL
+			return // HL
+		} // HL
 		log.Println(message)
 	}
 }
