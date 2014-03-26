@@ -4,23 +4,13 @@ Geert-Johan Riemer
 Foize
 github.com/GeertJohan
 
-* Introductie
-
-TODO: remove this slide ?
-Go is een concurrent open source programmeer taal ontwikkeld bij Google.
-
-Het combineert native compilatie and static types terwijl het voelt als een dynamische/scripting taal.
-
-Snel, leuk en productief.
-
-
 * Wat is Go?
 
 Een open source (BSD licentie) project:
 
 - Native code generation (gecompileerd)
 - Statically typed
-- Composition via interfaces
+- Compositie middels interfaces
 - Memory safe
 - Garbage collected
 - Native concurrency support
@@ -64,6 +54,13 @@ De meest bekende zijn de `Reader` en `Writer` types, voor gebruik van data strea
 .code simpel/io/io.go
 
 `Reader` and `Writer` implementaties omvatten files, sockets, (de)compressors, image and JSON codecs, en meer.
+
+
+* Implementeren
+
+Type `kladblok` implementeert `io.Writer`.
+
+.code simpel/implement.go
 
 
 * Koppelen van io.Readers
@@ -138,13 +135,13 @@ Compileer en start een enkel Go bestand:
 
 	$ go run hello.go
 
-Build en installeer het package in de huidige map (en e.v.t. dependencies):
+Build het package in de huidige map (en e.v.t. dependencies):
 
-	$ go install
+	$ go build
 
-Build en installeer het `fmt` package (en zijn dependencies):
+Build het `fmt` package (en dependencies):
 
-	$ go install fmt
+	$ go build fmt
 
 
 * Import paths
@@ -169,7 +166,7 @@ Het `mgl` programma importeert het `go.hid` pakket:
 
 Door `mgl` te installeren wordt `go.hid` ook automatisch geinstalleerd:
 
-  $ go install github.com/GeertJohan/mgl
+  $ go build github.com/GeertJohan/mgl
 
 
 * Remote dependencies
