@@ -1,0 +1,130 @@
+Using Go in production at Foize
+
+Geert-Johan Riemer
+Foize B.V.
+github.com/GeertJohan
+
+* Three years of Go
+
+Started as personal interest in a new language thats closer to metal, while being productive and safe.
+
+First personal public projects:
+Yubigo (yubikey OTP verification)
+Go Matrix (just having a bit of fun)
+
+* Introduced at Foize
+
+Go 1.0 release in march 2012
+
+First Go project: data synchronization
+Second Go project: gps tracking and communication
+
+Generally good adoption.
+
+Most project rely on concurrency and make good use of goroutines and channels.
+Also lots of HTTP; http+json API's, webservices, websites, local server for GUI.
+
+* Go on MIPS architecture
+
+Can now run a go binary on 64MB MikroTIK device (OpenWRT).
+
+Using gccgo with OpenWRT makefiles.
+
+* Deployment of server software
+
+Pushing binaries, not always a success.
+GLIBC version mismatch.
+
+Compiling on server works, but requires all source on server.
+Can cause problems with changing dependencies.
+
+* GOPATH
+
+Safety and stability?
+Place complete GOPATH in a repository.
+
+.image using/gopath-in-repo.png
+
+* gopkg.in
+
+Version management with git(hub).
+Only forwards. Doesn't serve code.
+
+go get gopkg.in/yaml.v1
+
+gopkg.in/pkg.v3 → github.com/go-pkg/pkg (branch/tag v3, v3.N, or v3.N.M)
+gopkg.in/user/pkg.v3 → github.com/user/pkg (branch/tag v3, v3.N, or v3.N.M)
+
+More info: gopkg.in
+
+* Some packages
+
+* github.com/jessevdk/go-flags
+
+More versatile than pkg `flags`.
+
+.play using/flags.go  /START/,/END/
+
+* github.com/jessevdk/go-flags
+
+.play using/flags2.go  /START/,/END/
+
+* github.com/davecgh/go-spew/spew
+
+Deep pretty printer for data structures.
+
+.play using/spew.go
+
+* github.com/ziutek/mymysql
+MySQL 'driver'. Threadsafe. Autoreconnect. Transactions.
+
+.code using/mymysql.go  /START/,/END/
+
+* github.com/GeertJohan/go.linenoise
+
+Simple and lightweight readline pkg.
+Wraps `linenoise` C library.
+
+.code using/linenoise.go  /START/,/END/
+
+Also has:
+
+- Autocompletion callback handler
+- History (up/down)
+- Load/save history from file
+- Multiline support (wrap input)
+
+* github.com/GeertJohan/go.rice
+Embed resources in binary.
+Easily switch between development and production.
+
+.code using/rice-example.go  /START/,/END/
+
+Add resources directly to executable:
+
+  go build rice-example.go
+  rice append --exec rice-example
+
+* Tools
+
+* rerun
+`github.com/skelterjohn/rerun`
+
+- Uses `fsnotify` to watch code
+- Recompiles and restarts binary
+- Also watches dependencies (!!)
+
+* ffjson
+`github.com/pquerna/ffjson`
+
+- Generates Go code implementing `json.Marshaller` interface
+- Bypasses runtime reflection
+- JSON serialization speed ~2x (vs stdlib `json`)
+- drop-in solution
+
+
+* Looking into...
+
+- OpenStack (gophercloud)
+- ZeroMQ
+- Protocol buffers
